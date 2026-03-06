@@ -1,0 +1,954 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore Badung — Panduan Wisata &amp; Kuliner</title>
+  <meta name="description" content="Panduan wisata minimalis untuk Badung, Bali. Temukan spot terbaik, kuliner khas, dan tips sopan santun budaya lokal untuk liburanmu." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Explore Badung — Panduan Wisata &amp; Kuliner" />
+  <meta property="og:description" content="Panduan wisata minimalis untuk Badung, Bali. Pantai, budaya, kuliner — semua dalam satu halaman." />
+  <meta property="og:image" content="https://placehold.co/1200x630/c4161c/fff?text=Explore+Badung+Bali" />
+  <meta property="og:type" content="website" />
+
+  <style>
+    /* ============================================
+       CSS VARIABLES & RESET
+    ============================================ */
+    :root {
+      --accent:       #c4161c;
+      --accent-dark:  #9e1015;
+      --bg:           #faf8f4;
+      --bg-card:      #ffffff;
+      --text:         #1a1714;
+      --muted:        #7a7068;
+      --border:       #e8e2d9;
+      --radius:       12px;
+      --radius-lg:    20px;
+      --shadow:       0 2px 12px rgba(26,23,20,0.08);
+      --shadow-hover: 0 8px 32px rgba(26,23,20,0.14);
+      --font-display: Georgia, 'Times New Roman', serif;
+      --font-body:    'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; width: 100%; height: auto; }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    a:hover { color: var(--accent-dark); }
+
+    /* ============================================
+       FOCUS / KEYBOARD ACCESSIBILITY
+    ============================================ */
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ============================================
+       TYPOGRAPHY
+    ============================================ */
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      line-height: 1.15;
+      color: var(--text);
+    }
+
+    h1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 700; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.01em; }
+    h3 { font-size: 1.1rem; font-weight: 700; }
+
+    p  { color: var(--text); }
+
+    .lead {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 60ch;
+      line-height: 1.75;
+    }
+
+    /* ============================================
+       LAYOUT UTILITIES
+    ============================================ */
+    .container {
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section-header {
+      margin-bottom: 40px;
+    }
+    .section-header h2 {
+      margin-bottom: 10px;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    /* ============================================
+       ANIMATION — FADE-IN WITH INTERSECTION OBSERVER
+    ============================================ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition:
+        opacity  700ms cubic-bezier(.2,.9,.2,1),
+        transform 700ms cubic-bezier(.2,.9,.2,1);
+    }
+
+    .fade-in.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger delays for grid cards */
+    .stagger-1 { transition-delay: 0ms;   }
+    .stagger-2 { transition-delay: 120ms; }
+    .stagger-3 { transition-delay: 240ms; }
+    .stagger-4 { transition-delay: 360ms; }
+    .stagger-5 { transition-delay: 480ms; }
+    .stagger-6 { transition-delay: 600ms; }
+
+    /* prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
+    /* ============================================
+       NAVIGATION
+    ============================================ */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,248,244,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 8px rgba(26,23,20,0.06);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      gap: 16px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo .logo-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--accent);
+      background: rgba(196,22,28,0.07);
+    }
+
+    /* ============================================
+       HERO / JUMBOTRON
+    ============================================ */
+    /* HERO */
+    .hero {
+      position: relative;
+      padding: 96px 0 80px;
+      overflow: hidden;
+    }
+
+    /* Subtle decorative background */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -80px;
+      width: 520px; height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,22,28,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      background: rgba(196,22,28,0.08);
+      border: 1px solid rgba(196,22,28,0.18);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      margin-bottom: 20px;
+    }
+
+    .hero .lead {
+      font-size: 1.1rem;
+      margin-bottom: 36px;
+      max-width: 52ch;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(196,22,28,0.3);
+    }
+
+    .hero-cta:hover,
+    .hero-cta:focus-visible {
+      background: var(--accent-dark);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(196,22,28,0.35);
+    }
+
+    .hero-cta::after { content: '→'; font-size: 1rem; }
+
+    /* ============================================
+       DIVIDER
+    ============================================ */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ============================================
+       WISATA CARDS
+    ============================================ */
+    /* WISATA CARDS */
+    #wisata {
+      background: var(--bg);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s cubic-bezier(.2,.9,.2,1), box-shadow 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card figure {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #e8e2d9;
+    }
+
+    .card figure img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(.2,.9,.2,1);
+    }
+
+    .card:hover figure img {
+      transform: scale(1.05);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .card-body {
+      padding: 20px 22px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-body h3 {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+
+    .card-body p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .card-tip {
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: rgba(196,22,28,0.05);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .card-tip strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ============================================
+       KULINER SECTION
+    ============================================ */
+    #kuliner {
+      background: linear-gradient(180deg, #f5f0e8 0%, var(--bg) 100%);
+    }
+
+    .kuliner-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    .kuliner-item {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 20px 22px;
+      box-shadow: var(--shadow);
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+
+    .kuliner-item:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .kuliner-icon {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+
+    .kuliner-item h3 {
+      font-size: 0.98rem;
+      margin-bottom: 5px;
+    }
+
+    .kuliner-item p {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .kuliner-tip {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--text);
+      padding: 8px 12px;
+      background: rgba(196,22,28,0.05);
+      border-radius: 6px;
+      border-left: 3px solid var(--accent);
+    }
+
+    /* ============================================
+       DO & DON'T SECTION
+    ============================================ */
+    #dont {
+      background: var(--bg);
+    }
+
+    .dont-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 8px;
+    }
+
+    .dont-col h3 {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dont-col.do-col h3 { color: #2a8a3e; }
+    .dont-col.dont-col-right h3 { color: #c4161c; }
+
+    .dont-col h3 .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      font-size: 0.9rem;
+    }
+
+    .do-col h3 .badge   { background: rgba(42,138,62,0.12); }
+    .dont-col-right h3 .badge { background: rgba(196,22,28,0.10); }
+
+    .rule-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .rule-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+
+    .rule-item:hover { transform: translateX(3px); }
+
+    .rule-icon {
+      flex-shrink: 0;
+      font-size: 1.1rem;
+      margin-top: 1px;
+    }
+
+    .rule-text strong {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 3px;
+      color: var(--text);
+    }
+
+    .rule-text span {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.7);
+      padding: 48px 0 36px;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-logo .logo-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      max-width: 50ch;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .footer-copy {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.02em;
+    }
+
+    /* ============================================
+       RESPONSIVE — TABLET
+    ============================================ */
+    @media (max-width: 880px) {
+      .card-grid { grid-template-columns: repeat(2, 1fr); }
+      .kuliner-list { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================
+       RESPONSIVE — MOBILE
+    ============================================ */
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .hero { padding: 64px 0 56px; }
+      section { padding: 56px 0; }
+
+      .nav-links a { padding: 5px 8px; font-size: 0.78rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .dont-grid { grid-template-columns: 1fr; gap: 20px; }
+
+      .kuliner-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================
+       NAVIGATION
+  ============================================ -->
+  <header>
+    <nav class="site-nav" aria-label="Navigasi utama situs">
+      <div class="container nav-inner">
+        <a href="#beranda" class="nav-logo" aria-label="Explore Badung — kembali ke beranda">
+          <span class="logo-dot" aria-hidden="true"></span>
+          Explore Badung
+        </a>
+        <ul class="nav-links" role="list">
+          <li><a href="#beranda">Beranda</a></li>
+          <li><a href="#wisata">Rekomendasi Wisata</a></li>
+          <li><a href="#kuliner">Kuliner</a></li>
+          <li><a href="#dont">Do &amp; Don't</a></li>
+          <li><a href="#kontak">Kontak</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============================================
+         HERO
+    ============================================ -->
+    <!-- HERO -->
+    <section class="hero" id="beranda" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="fade-in">
+          <span class="hero-tagline" aria-label="Topik utama">🌊 Pantai &nbsp;•&nbsp; 🏛️ Budaya &nbsp;•&nbsp; 🍜 Kuliner</span>
+          <h1 id="hero-heading">Selamat datang di<br>Badung, Bali 🌴</h1>
+          <p class="lead">
+            Panduan minimalis ini membantu kamu menemukan spot terbaik, kuliner khas, dan tata cara saat berwisata di Badung. Cocok untuk liburan singkat atau perjalanan santai.
+          </p>
+          <a href="#wisata" class="hero-cta" aria-label="Rencanakan liburanmu, lihat rekomendasi wisata">Rencanakan Liburan</a>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- ============================================
+         WISATA CARDS
+    ============================================ -->
+    <!-- WISATA CARDS -->
+    <section id="wisata" aria-labelledby="wisata-heading">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2 id="wisata-heading">Rekomendasi Wisata 📍</h2>
+          <p class="lead">Pilihan spot terbaik di Badung, disertai alasan mengapa layak dikunjungi dan tips singkat saat berkunjung.</p>
+        </div>
+
+        <div class="card-grid" role="list">
+
+          <!-- Card 1: Pantai Kuta -->
+          <article class="card fade-in stagger-1" role="listitem" aria-label="Pantai Kuta">
+            <figure>
+              <img
+                src="https://media.istockphoto.com/id/1177722183/id/foto/pantai-kuta-saat-matahari-terbit-bali-indonesia.jpg?s=612x612&w=0&k=20&c=92kQTkJ6bxJEuj2ZkoDdaLLDOZP2hMNtYeTGjoaaFQs="
+                alt="Foto Pantai Kuta saat sunset — pasir panjang dan ombak biru keperakan"
+                loading="lazy"
+              />
+              <span class="card-badge" aria-label="Kategori: Pantai">Pantai</span>
+            </figure>
+            <div class="card-body">
+              <h3>Pantai Kuta</h3>
+              <p>Spot wajib bagi yang suka matahari terbenam, surfing pemula, dan hiburan malam. Pasir panjang, fasilitas lengkap (hotel, restoran, sewa papan), dan akses mudah dari bandara.</p>
+              <div class="card-tip"><strong>💡 Tip:</strong> Datang saat sore untuk menikmati sunset; jaga barang saat keramaian.</div>
+            </div>
+          </article>
+
+          <!-- Card 2: Uluwatu -->
+          <article class="card fade-in stagger-2" role="listitem" aria-label="Uluwatu dan Bukit Peninsula">
+            <figure>
+              <img
+                src="https://sita.badungkab.go.id/images/post/pura-uluwatu-badung-bali-668ea12257cdc.webp"
+                alt="Foto Pura Uluwatu di tebing dengan pemandangan Samudra Hindia yang dramatis"
+                loading="lazy"
+              />
+              <span class="card-badge" aria-hidden="true">Budaya</span>
+            </figure>
+            <div class="card-body">
+              <h3>Uluwatu &amp; Bukit Peninsula</h3>
+              <p>Pura di tebing, tarian kecak senja, panorama ombak dramatis. Pemandangan ikonik dan atmosfir budaya yang kuat.</p>
+              <div class="card-tip"><strong>💡 Tip:</strong> Pakai kain saat ke area pura; jangan mendekati tebing tanpa pagar.</div>
+            </div>
+          </article>
+
+          <!-- Card 3: Jimbaran -->
+          <article class="card fade-in stagger-3" role="listitem" aria-label="Jimbaran Bay">
+            <figure>
+              <img
+                src="https://www.korinatour.co.id/wp-content/uploads/2016/10/MG_6793.jpg"
+                alt="Foto deretan warung seafood di tepi Pantai Jimbaran saat senja"
+                loading="lazy"
+              />
+              <span class="card-badge" aria-hidden="true">Kuliner</span>
+            </figure>
+            <div class="card-body">
+              <h3>Jimbaran Bay</h3>
+              <p>Deretan warung seafood di tepi pantai — sajian segar ditemani sunset romantis. Atmosfir tenang dengan ombak lembut sebagai latar.</p>
+              <div class="card-tip"><strong>💡 Tip:</strong> Datang sebelum sunset; pesan lebih awal saat high season.</div>
+            </div>
+          </article>
+
+          <!-- Card 4: Nusa Dua -->
+          <article class="card fade-in stagger-4" role="listitem" aria-label="Nusa Dua dan Tanjung Benoa">
+            <figure>
+              <img
+                src="https://sita.badungkab.go.id/images/post/en/nusa-dua-beach-66d902ee2f92f.webp"
+                alt="Foto Pantai Nusa Dua berpasir putih dengan air biru jernih dan resort mewah"
+                loading="lazy"
+              />
+              <span class="card-badge" aria-hidden="true">Pantai</span>
+            </figure>
+            <div class="card-body">
+              <h3>Nusa Dua &amp; Tanjung Benoa</h3>
+              <p>Pantai berpasir putih, resort mewah, dan watersport di Tanjung Benoa. Cocok untuk liburan keluarga dan pasangan yang ingin suasana eksklusif.</p>
+              <div class="card-tip"><strong>💡 Tip:</strong> Pilih operator bersertifikat untuk keamanan watersport.</div>
+            </div>
+          </article>
+
+          <!-- Card 5: Seminyak -->
+          <article class="card fade-in stagger-5" role="listitem" aria-label="Seminyak">
+            <figure>
+              <img
+                src="https://finnsbeachclub.com/wp-content/uploads/2023/12/finns-1024x575.jpg"
+                alt="Foto beach club Seminyak dengan suasana elegan dan orang-orang bersantai"
+                loading="lazy"
+              />
+              <span class="card-badge" aria-hidden="true">Gaya Hidup</span>
+            </figure>
+            <div class="card-body">
+              <h3>Seminyak</h3>
+              <p>Area gaya hidup dengan kafe, butik, beach club, dan suasana elegan. Tempat sempurna untuk shopping, kopi, dan santai sore bersama teman.</p>
+              <div class="card-tip"><strong>💡 Tip:</strong> Cocok untuk shopping, kopi, dan hangout sore hari.</div>
+            </div>
+          </article>
+
+          <!-- Card 6: Melasti -->
+          <article class="card fade-in stagger-6" role="listitem" aria-label="Pantai Melasti dan Hidden Beaches">
+            <figure>
+              <img
+                src="https://asset.kompas.com/crops/9OGn7vRl_7BebGpQh3wTwmWZkt4=/0x0:844x563/1200x800/data/photo/2020/03/03/5e5e5f39bf7eb.jpg"
+                alt="Foto Pantai Melasti tersembunyi di tebing Uluwatu dengan pemandangan tebing dramatis"
+                loading="lazy"
+              />
+              <span class="card-badge" aria-hidden="true">Hidden Gem</span>
+            </figure>
+            <div class="card-body">
+              <h3>Pantai Melasti &amp; Hidden Beaches</h3>
+              <p>Pantai tersembunyi di tebing Uluwatu — tenang, pemandangan dramatis. Ideal untuk yang mencari ketenangan jauh dari keramaian.</p>
+              <div class="card-tip"><strong>💡 Tip:</strong> Gunakan sepatu nyaman untuk turunan tangga dan bawa air minum.</div>
+            </div>
+          </article>
+
+        </div><!-- /.card-grid -->
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- ============================================
+         KULINER SECTION
+    ============================================ -->
+    <section id="kuliner" aria-labelledby="kuliner-heading">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2 id="kuliner-heading">Kuliner Khas Badung 🍽️</h2>
+          <p class="lead">Rasakan cita rasa lokal dan rekomendasi tempat yang wajib dicoba.</p>
+        </div>
+
+        <ul class="kuliner-list" role="list">
+
+          <li class="kuliner-item fade-in stagger-1">
+            <div class="kuliner-icon" aria-hidden="true">🦞</div>
+            <h3>Jimbaran Seafood</h3>
+            <p>BBQ seafood segar di pinggir pantai — ikan, kepiting, dan udang dengan bumbu Bali yang kaya.</p>
+            <div class="kuliner-tip">💡 Coba sambal matah dan ikan bakar.</div>
+          </li>
+
+          <li class="kuliner-item fade-in stagger-2">
+            <div class="kuliner-icon" aria-hidden="true">🍛</div>
+            <h3>Nasi Campur Bali &amp; Warung Lokal</h3>
+            <p>Cita rasa rumahan seperti ayam betutu dan lawar. Warung sederhana dengan menu autentik yang menggoyang lidah.</p>
+            <div class="kuliner-tip">💡 Pilih warung yang ramai — biasanya lebih segar.</div>
+          </li>
+
+          <li class="kuliner-item fade-in stagger-3">
+            <div class="kuliner-icon" aria-hidden="true">🥩</div>
+            <h3>Babi Guling</h3>
+            <p>Hidangan khas Bali dengan bumbu kaya dan kulit renyah. Ikon kuliner yang wajib dicoba bagi yang tidak ada pantangan.</p>
+            <div class="kuliner-tip">💡 Bagi yang tidak makan babi, pilih alternatif laut atau vegetarian.</div>
+          </li>
+
+          <li class="kuliner-item fade-in stagger-4">
+            <div class="kuliner-icon" aria-hidden="true">☕</div>
+            <h3>Kopi Lokal &amp; Dessert di Seminyak</h3>
+            <p>Kafe single-origin dan dessert modern. Seminyak dan Canggu penuh pilihan kopi Bali berkualitas tinggi.</p>
+            <div class="kuliner-tip">💡 Coba kopi lokal dan jajanan tradisional modern.</div>
+          </li>
+
+          <li class="kuliner-item fade-in stagger-5">
+            <div class="kuliner-icon" aria-hidden="true">🛍️</div>
+            <h3>Oleh-oleh Khas Bali</h3>
+            <p>Kopi bubuk, kue tradisional, dan kerajinan tangan. Bawa pulang kenangan autentik dari Badung.</p>
+            <div class="kuliner-tip">💡 Bandingkan harga sebelum membeli.</div>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- ============================================
+         DO & DON'T SECTION
+    ============================================ -->
+    <section id="dont" aria-labelledby="dont-heading">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2 id="dont-heading">Do &amp; Don't Saat Wisata di Bali ✅❌</h2>
+          <p class="lead">Panduan sopan santun dan keselamatan agar liburanmu menyenangkan dan menghormati budaya lokal.</p>
+        </div>
+
+        <div class="dont-grid">
+
+          <!-- DO -->
+          <div class="dont-col do-col fade-in stagger-1">
+            <h3>
+              <span class="badge" aria-hidden="true">✅</span>
+              Yang Harus Dilakukan
+            </h3>
+            <ul class="rule-list" role="list">
+              <li class="rule-item">
+                <span class="rule-icon" aria-hidden="true">🏛️</span>
+                <div class="rule-text">
+                  <strong>Hormati Pura &amp; Upacara</strong>
+                  <span>Kenakan pakaian sopan (menutup bahu dan lutut); gunakan kain ketika diminta.</span>
+                </div>
+              </li>
+              <li class="rule-item">
+                <span class="rule-icon" aria-hidden="true">♻️</span>
+                <div class="rule-text">
+                  <strong>Jaga Kebersihan</strong>
+                  <span>Buang sampah pada tempatnya; kurangi penggunaan plastik sekali pakai.</span>
+                </div>
+              </li>
+              <li class="rule-item">
+                <span class="rule-icon" aria-hidden="true">🪪</span>
+                <div class="rule-text">
+                  <strong>Gunakan Operator Resmi</strong>
+                  <span>Pilih operator berlisensi untuk watersport dan semua aktivitas berisiko.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- DON'T -->
+          <div class="dont-col dont-col-right fade-in stagger-2">
+            <h3>
+              <span class="badge" aria-hidden="true">❌</span>
+              Yang Harus Dihindari
+            </h3>
+            <ul class="rule-list" role="list">
+              <li class="rule-item">
+                <span class="rule-icon" aria-hidden="true">🚫</span>
+                <div class="rule-text">
+                  <strong>Jangan Mengganggu Upacara</strong>
+                  <span>Hindari memotret tanpa izin dan masuk ke area upacara yang sedang berlangsung.</span>
+                </div>
+              </li>
+              <li class="rule-item">
+                <span class="rule-icon" aria-hidden="true">🐒</span>
+                <div class="rule-text">
+                  <strong>Jangan Memberi Makan Monyet</strong>
+                  <span>Monyet bisa agresif dan merusak barang; jaga jarak yang aman.</span>
+                </div>
+              </li>
+              <li class="rule-item">
+                <span class="rule-icon" aria-hidden="true">⚠️</span>
+                <div class="rule-text">
+                  <strong>Hindari Perilaku Tidak Sopan</strong>
+                  <span>Jangan berteriak, merokok di area pura, atau berpakaian yang menyinggung.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================
+       FOOTER / KONTAK
+  ============================================ -->
+  <footer id="kontak" aria-label="Footer Explore Badung">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <span class="logo-dot" aria-hidden="true"></span>
+          Explore Badung
+        </div>
+        <p class="footer-tagline">
+          Panduan minimalis: dirancang untuk liburan yang sopan, aman, dan berkesan. Nikmati keindahan Badung dengan penuh rasa hormat.
+        </p>
+        <p class="footer-copy">© <span id="year"></span> Explore Badung &nbsp;•&nbsp; Made with ❤️</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ============================================
+       YEAR AUTO-UPDATE
+    ============================================ */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ============================================
+       INTERSECTION OBSERVER ANIMATION
+       Adds .in-view to .fade-in elements when they
+       enter the viewport. Stops observing once seen.
+    ============================================ */
+    (function () {
+      // Disable animations if user prefers reduced motion
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('.fade-in').forEach(function (el) {
+          el.classList.add('in-view');
+        });
+        return;
+      }
+
+      var targets = document.querySelectorAll('.fade-in');
+
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              observer.unobserve(entry.target); // Stop watching once visible
+            }
+          });
+        },
+        {
+          threshold: 0.12,   // Trigger when 12% of element is visible
+          rootMargin: '0px 0px -32px 0px'
+        }
+      );
+
+      targets.forEach(function (el) {
+        observer.observe(el);
+      });
+    })();
+  </script>
+
+</body>
+</html>
